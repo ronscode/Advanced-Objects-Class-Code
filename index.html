@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<ul id="demo"></ul>
+		<script>
+			// let text =
+			// 	'{ "employees" : [{ "firstName":"John" , "lastName":"Doe" },{ "firstName":"Peter" , "lastName":"Jones" } ]}';
+
+			// let obj = JSON.parse(text);
+			// let someHTML = "";
+			// let someHTMLArr = [];
+			// // for (person of obj.employees) {
+			// // 	someHTML += `<li> ${person.firstName} ${person.lastName} </li>`;
+			// // }
+			// for (person of obj.employees) {
+			// 	someHTMLArr.push(
+			// 		`<li> ${person.firstName} <b>${person.lastName}</b> </li>`
+			// 	);
+			// }
+			// console.log(someHTMLArr);
+
+			let someJSON =
+				'[{"name":"Peter","score":420},{"name":"Saul","score":999},{"name":"George","score":205},{"name":"Mario","score":99999}]';
+
+			let arr = JSON.parse(someJSON);
+			let outputArr = ["<table>"];
+			outputArr.push(makeKeyRow(arr));
+			arr.forEach((obj) => outputArr.push(makeValueRow(obj)));
+			outputArr.push("</table>");
+			function makeKeyRow(arr) {
+				let tblHeader = `<tr>`;
+				console.log("key row", arr);
+				let headerKeys = Object.keys(arr[0]);
+				//  console.log(headerKeys, `<tr><th>Name</th><th>Price</th></tr>`);
+				for (key of headerKeys) {
+					tblHeader += `<th>${key}</th>`;
+				}
+				tblHeader += `/<tr>`;
+				outputArr.push(tblHeader);
+				console.log(tblHeader);
+			}
+			function makeValueRow(obj) {
+				let tblRow = `<tr>`;
+				for (item of arr) {
+					console.log(item);
+					for (const key in obj) {
+						console.log(`obj.${key} = ${obj[key]}`);
+						tblRow += `<td>${obj[key]}</td>`;
+					}
+				}
+				tblRow += `</tr>`;
+
+				console.log(tblRow);
+				outputArr.push(tblRow);
+			}
+			function escapeHtml(value) {
+				// ToDo };
+			}
+			console.log(outputArr.join(""));
+
+			document.getElementById("demo").innerHTML = outputArr.join("");
+		</script>
+	</body>
+</html>
