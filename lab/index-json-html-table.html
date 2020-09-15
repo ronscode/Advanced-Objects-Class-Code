@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>FromJSONToHTMLTable</title>
+		<style>
+			table,
+			th {
+				border: groove;
+				border-collapse: collapse;
+			}
+			td {
+				border: 1px solid black;
+			}
+			td,
+			th {
+				padding: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrapper"></div>
+		<script>
+			function fromJSONToHTMLTable(input) {
+				let theArr = JSON.parse(input);
+				let finalTable = "<table>";
+				let tblHeader = "<tr>";
+				let keyHeaders = Object.keys(theArr[0]);
+				let countObj = {};
+				//	console.log("key headers", keyHeaders);
+				for (tblKey of keyHeaders) {
+					tblHeader += `<th>${tblKey}</th>`;
+				}
+				tblHeader += `</tr>`;
+				finalTable += tblHeader;
+
+				for (anObj of theArr) {
+					for (let key of Object.keys(anObj)) {
+						if (!countObj[key]) {
+							countObj[key] = [anObj[key]];
+						} else {
+							let tempArr = countObj[key];
+							tempArr.push(anObj[key]);
+							countObj[key] = tempArr;
+						}
+					}
+				}
+				for (let anObj of Object.keys(countObj)) {
+					//console.log(anObj);
+					// let htmlVals = anObj[key].map((x) => {
+					// 	return `<`;
+					// });
+				}
+				//
+				let tableRow = `<tr>`;
+				for (let key of Object.keys(countObj)) {
+					console.log(countObj[key]);
+					for (let i = 0; i < countObj[key].length; i++) {
+						console.log(i);
+					}
+					// for (let i = 0; i > 2; i++) {
+					// 	console.log("hello");
+					// 	tableRow += `<td>${countObj[key][i]}<td>`;
+					// }
+				}
+				tableRow += `</tr>`;
+				finalTable += tableRow;
+
+				console.log(finalTable, "the obj count is ", countObj);
+				return finalTable;
+			}
+
+			window.onload = function () {
+				let container = document.getElementById("wrapper");
+				container.innerHTML = fromJSONToHTMLTable([
+					'[{"Name":"Tomatoes & Chips","Price":2.35},{"Name":"J&B Chocolate","Price":0.96}]',
+				]);
+			};
+		</script>
+	</body>
+</html>

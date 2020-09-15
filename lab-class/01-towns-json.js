@@ -8,14 +8,7 @@ function main(input) {
 		let trimItem = tempItem.map((x) => {
 			return x.trim();
 		});
-		let fixedItem = trimItem.map((y) => {
-			if (typeof y === "number") {
-				return y;
-			} else {
-				return y;
-			}
-		});
-		newArr.push(fixedItem);
+		newArr.push(trimItem);
 	});
 
 	let townKeys = newArr.shift();
@@ -27,6 +20,9 @@ function main(input) {
 			this.Longitude = long;
 		}
 	}
+
+	console.log(newArr);
+	console.log(finalArr);
 	for (town of newArr) {
 		finalArr.push(
 			new ATown(
@@ -36,6 +32,7 @@ function main(input) {
 			)
 		);
 	}
+
 	console.log(JSON.stringify(finalArr));
 }
 
